@@ -36,7 +36,7 @@ public class Pong {
 				super.paintComponent(g);
 				p1.paint(g);
 				p2.paint(g);
-				ball.draw(g);
+				ball.paint(g);
 			}
 		};
 		panel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("pressed W"), "W");
@@ -105,7 +105,7 @@ public class Pong {
 			public void actionPerformed(ActionEvent e) {
 				p1.move();
 				p2.move();
-				ball.move(1024, 512);
+				ball.move();
 				frame.repaint();
 			}
 		});
