@@ -30,8 +30,8 @@ public class Paddle {
 		y += speed * direction;
 		if(y < 0) {
 			y = 0;
-		} else if(y > Pong.GAME_HEIGHT) {
-			y = Pong.GAME_HEIGHT;
+		} else if(y > Pong.GAME_HEIGHT - height) {
+			y = Pong.GAME_HEIGHT - height;
 		}
 	}
 	
