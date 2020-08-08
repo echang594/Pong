@@ -1,16 +1,8 @@
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.Graphics;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.AbstractAction;
-import javax.swing.JComponent;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.KeyStroke;
-import javax.swing.Timer;
+import javax.swing.*;
 
 public class Pong {
 	public static final int GAME_WIDTH = 1024;
