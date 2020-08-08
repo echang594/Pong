@@ -19,18 +19,10 @@ public class Pong {
 		p2 = new Paddle(GAME_WIDTH-14, GAME_HEIGHT/2-28, 4, 56, 2, false);
 		ball = new Ball(GAME_WIDTH/2, GAME_HEIGHT/2, 10, 10, 40);
 		
-		Paddle paddle = new Paddle(10, 10, 10, 10, 10, true);
-
-		
-		frame = new JFrame();
-		
-		frame.setBounds(50, 50, GAME_WIDTH, GAME_HEIGHT);
-		
-
 		frame = new JFrame("Pong");
 
 		frame.setBounds(100, 100, GAME_WIDTH, GAME_HEIGHT);
-
+		
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setResizable(false);
 		frame.setVisible(true);
