@@ -52,8 +52,8 @@ public class Paddle implements KeyListener {
 		y += speed * direction;
 		if(y < 0) {
 			y = 0;
-		} else if(y > Pong.gameHeight) {
-			y = Pong.gameHeight;
+		} else if(y > Pong.GAME_HEIGHT) {
+			y = Pong.GAME_HEIGHT;
 		}
 	}
 	
