@@ -3,7 +3,7 @@ import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
-public class Paddle implements KeyListener {
+public class Paddle {
 	private int x;
 	private int y;
 	private int width;
@@ -27,26 +27,6 @@ public class Paddle implements KeyListener {
 		g.setColor(Color.WHITE);
 		g.fillRect(x, y, width, height);
 	}
-
-	@Override
-	public void keyTyped(KeyEvent e) {
-		
-	}
-
-	@Override
-	public void keyPressed(KeyEvent e) {
-		int keyCode = e.getKeyCode();
-		if(keyCode == KeyEvent.VK_W || keyCode == KeyEvent.VK_UP) {
-			direction = -1;
-		} else if(keyCode == KeyEvent.VK_S || keyCode == KeyEvent.VK_DOWN) {
-			direction = 1;
-		}
-	}
-
-	@Override
-	public void keyReleased(KeyEvent e) {
-		direction = 0;
-	}
 	
 	public void move() {
 		y += speed * direction;
@@ -55,6 +35,10 @@ public class Paddle implements KeyListener {
 		} else if(y > Pong.GAME_HEIGHT) {
 			y = Pong.GAME_HEIGHT;
 		}
+	}
+	
+	public void setDirection(int d) {
+		direction = d;
 	}
 	
 	public boolean isLeft() {
