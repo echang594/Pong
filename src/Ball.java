@@ -20,18 +20,19 @@ public class Ball {
 		x += vx;
 		y += vy;
 
-		if (x <= radius) {
-			x = radius;
-			vx *= -1;
+		if (x <= -1*radius) {
+			// update score (+1 for right)
+			// play again/quit gui
 		} else if (x >= Pong.GAME_WIDTH - radius) {
-			x = Pong.GAME_WIDTH - radius;
-			vx *= -1;
+			// update score (+1 for left)
+			// play again/quit gui
 		}
 
-		if (y <= radius) {
+		if (y <= 0) {
 			y = radius;
 			vy *= -1;
 		} else if (y >= Pong.GAME_HEIGHT - radius) {
+			// bounces too low by a little bit
 			y = Pong.GAME_HEIGHT - radius;
 			vy *= -1;
 		}

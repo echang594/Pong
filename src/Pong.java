@@ -19,7 +19,7 @@ public class Pong {
 	public Pong() {
 		p1 = new Paddle(10, GAME_HEIGHT/2-28, 4, 56, 2, true);
 		p2 = new Paddle(GAME_WIDTH-14, GAME_HEIGHT/2-28, 4, 56, 2, false);
-		ball = new Ball(GAME_WIDTH/2, GAME_HEIGHT/2, 10, 10, 40);
+		ball = new Ball(GAME_WIDTH/2, GAME_HEIGHT/2, 4, 4, 40);
 
 		frame = new JFrame();
 
