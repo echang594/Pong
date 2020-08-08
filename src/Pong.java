@@ -15,11 +15,14 @@ public class Pong {
 	private JFrame frame;
 	private JPanel panel;
 	private Timer timer;
-
+	
+	private int leftScore = 0;
+	private int rightScore = 0;
+	
 	public Pong() {
 		p1 = new Paddle(10, GAME_HEIGHT/2-28, 4, 56, 2, true);
 		p2 = new Paddle(GAME_WIDTH-14, GAME_HEIGHT/2-28, 4, 56, 2, false);
-		ball = new Ball(GAME_WIDTH/2, GAME_HEIGHT/2, 10, 10, 40);
+		ball = new Ball(GAME_WIDTH/2, GAME_HEIGHT/2, 5, 5, 20);
 
 		frame = new JFrame();
 
@@ -37,6 +40,7 @@ public class Pong {
 				p1.paint(g);
 				p2.paint(g);
 				ball.paint(g);
+				g.drawLine(512, 0, 512, 512);
 			}
 		};
 		panel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("pressed W"), "W");
@@ -110,6 +114,32 @@ public class Pong {
 			}
 		});
 		timer.start();
+		
+		
+		
+		panel.setLayout(null);
+		
+		
+
+		if(ball.getX() == 0) {
+			leftScore++;
+		}
+		else if(ball.getX() == GAME_WIDTH) {
+			rightScore++;
+		}
+
+		JLabel labelL = new JLabel(leftScore + "");
+		JLabel labelR = new JLabel(rightScore + "");
+		labelL.setForeground(Color.WHITE);	
+		labelR.setForeground(Color.WHITE);
+		panel.add(labelL);
+		panel.add(labelR);
+		labelL.setLocation(412, 0);
+		labelL.setSize(100, 100);
+		labelL.setFont(new Font("Serif", Font.PLAIN, 100));
+		labelR.setLocation(562, 0);
+		labelR.setSize(100, 100);
+		labelR.setFont(new Font("Serif", Font.PLAIN, 100));
 	}
 	
 	public static void main(String[] args) {
