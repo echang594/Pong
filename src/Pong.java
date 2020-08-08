@@ -16,14 +16,10 @@ public class Pong {
 
 
 	public Pong() {
-		p1 = new Paddle(10, GAME_HEIGHT/2-28, 4, 56, 2, true);
-		p2 = new Paddle(GAME_WIDTH-14, GAME_HEIGHT/2-28, 4, 56, 2, false);
+		p1 = new Paddle(10, GAME_HEIGHT/2-28, 40, 56, 2, true);
+		p2 = new Paddle(GAME_WIDTH-14, GAME_HEIGHT/2-28, 40, 56, 2, false);
 		ball = new Ball(GAME_WIDTH/2, GAME_HEIGHT/2, 60);
-		
 
-		Paddle paddle = new Paddle(10, 10, 10, 10, 10, true);
-
-		
 		frame = new JFrame();
 		
 		frame.setBounds(50, 50, GAME_WIDTH, GAME_HEIGHT);
