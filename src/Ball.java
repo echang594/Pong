@@ -12,7 +12,7 @@ public class Ball {
 		this.radius = radius;
 	}
 	 
-	public void draw(Graphics g) {
+	public void paint(Graphics g) {
 		
 		g.setColor(Color.WHITE);
 		g.fillOval(x,  y,  radius, radius);
