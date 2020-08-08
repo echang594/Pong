@@ -49,4 +49,5 @@ public class Ball {
 	public boolean isInContact() {
 		return false;
 	}
+	
 }
