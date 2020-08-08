@@ -6,10 +6,9 @@ public class Pong {
 	public static final int GAME_WIDTH = 1024;
 	public static final int GAME_HEIGHT = 512;
 
-	private static JFrame frame;
+	private JFrame frame;
 	private JPanel panel;
 	
-
 	private Paddle p1;
 	private Paddle p2;
 	private Ball ball;
@@ -18,7 +17,7 @@ public class Pong {
 	public Pong() {
 		p1 = new Paddle(10, GAME_HEIGHT/2-28, 4, 56, 2, true);
 		p2 = new Paddle(GAME_WIDTH-14, GAME_HEIGHT/2-28, 4, 56, 2, false);
-		ball = new Ball(GAME_WIDTH/2, GAME_HEIGHT/2, 10, 10, 60);
+		ball = new Ball(GAME_WIDTH/2, GAME_HEIGHT/2, 10, 10, 40);
 		
 		Paddle paddle = new Paddle(10, 10, 10, 10, 10, true);
 
@@ -50,16 +49,24 @@ public class Pong {
 		panel.setBackground(Color.BLACK);
 		frame.getContentPane().add(panel);
 
-		
 		frame.setVisible(true);
+		
+		while (true) {
+			
+			ball.move(1024, 512);
+			
+			frame.repaint();
+			try {
+				Thread.currentThread().sleep(20);
+			} catch (InterruptedException e) { 
+				e.printStackTrace();
+			}
+		}
 	}
 	
 	public static void main(String[] args) {
 		new Pong();
 		
-		while (true) {
-			frame.repaint(); 
-		}
 	}
 
 }

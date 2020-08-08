@@ -20,8 +20,8 @@ public class Ball {
 		y += vy; 
 		
 		if (x <= radius) {
-			x=radius;
-			vx*=-1;
+			x = radius;
+			vx *= -1;
 		} else if (x >= width - radius){
 			x = width - radius;
 			vx *= -1;
