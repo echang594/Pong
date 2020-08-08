@@ -6,7 +6,7 @@ public class Pong {
 	public static final int GAME_WIDTH = 1024;
 	public static final int GAME_HEIGHT = 512;
 
-	private JFrame frame;
+	private static JFrame frame;
 	private JPanel panel;
 	
 
@@ -18,9 +18,8 @@ public class Pong {
 	public Pong() {
 		p1 = new Paddle(10, GAME_HEIGHT/2-28, 4, 56, 2, true);
 		p2 = new Paddle(GAME_WIDTH-14, GAME_HEIGHT/2-28, 4, 56, 2, false);
-		ball = new Ball(GAME_WIDTH/2, GAME_HEIGHT/2, 60);
+		ball = new Ball(GAME_WIDTH/2, GAME_HEIGHT/2, 10, 10, 60);
 		
-
 		Paddle paddle = new Paddle(10, 10, 10, 10, 10, true);
 
 		
@@ -35,11 +34,8 @@ public class Pong {
 
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setResizable(false);
-
 		frame.setVisible(true);
 		
-
-
 		panel = new JPanel() {
 			private static final long serialVersionUID = 1L;
 
@@ -57,9 +53,13 @@ public class Pong {
 		
 		frame.setVisible(true);
 	}
-
+	
 	public static void main(String[] args) {
 		new Pong();
+		
+		while (true) {
+			frame.repaint(); 
+		}
 	}
 
 }
