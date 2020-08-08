@@ -11,7 +11,7 @@ public class Ball {
 		this.y = y;
 		this.radius = radius;
 	}
-	 
+	
 	public void draw(Graphics g) {
 		
 		g.setColor(Color.WHITE);
