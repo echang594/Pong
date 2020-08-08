@@ -18,12 +18,14 @@ public class Pong {
 		
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setTitle("Pong");
-		frame.setBackground(Color.BLACK);
 		
+		frame.getContentPane().setBackground(Color.BLACK);
+		new Paddle(10, 10, 10, 10, 3, true);
+		new Ball (20, 20, 10); 
 		frame.setResizable(false);
 		frame.setVisible(true);
 		
-		new Paddle(10, 10, 10, 10, true);
+	 	
 		
 	}
 	
