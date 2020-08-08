@@ -19,7 +19,7 @@ public class Pong {
 	public Pong() {
 		p1 = new Paddle(10, GAME_HEIGHT/2-28, 4, 56, 2, true);
 		p2 = new Paddle(GAME_WIDTH-14, GAME_HEIGHT/2-28, 4, 56, 2, false);
-		ball = new Ball(GAME_WIDTH/2, GAME_HEIGHT/2, 60);
+		ball = new Ball(GAME_WIDTH/2, GAME_HEIGHT/2, 10, 10, 40);
 
 		frame = new JFrame();
 
@@ -105,12 +105,13 @@ public class Pong {
 			public void actionPerformed(ActionEvent e) {
 				p1.move();
 				p2.move();
+				ball.move(1024, 512);
 				frame.repaint();
 			}
 		});
-		timer.restart();
+		timer.start();
 	}
-
+	
 	public static void main(String[] args) {
 		new Pong();
 	}
