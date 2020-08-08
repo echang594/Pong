@@ -13,6 +13,7 @@ public class Paddle {
 		width = w;
 		height = h;
 		left = l;
+		
 	}
 	
 	public void paint(Graphics g) {
