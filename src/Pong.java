@@ -23,7 +23,7 @@ public class Pong {
 		frame.setResizable(false);
 		frame.setVisible(true);
 		
-		new Paddle(10, 10, 10, 10, true);
+		new Paddle(10, 10, 10, 10, 10, true);
 		
 	}
 	
