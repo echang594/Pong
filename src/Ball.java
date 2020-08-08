@@ -16,32 +16,22 @@ public class Ball {
 		this.radius = radius;
 	}
 
-	public void move() {
-		x += vx;
-		y += vy;
-
-		if (x <= radius) {
-			x = radius;
-			vx *= -1;
-		} else if (x >= Pong.GAME_WIDTH - radius) {
-			x = Pong.GAME_WIDTH - radius;
-			vx *= -1;
-		}
-
-		if (y <= radius) {
-			y = radius;
-			vy *= -1;
-		} else if (y >= Pong.GAME_HEIGHT - radius) {
-			y = Pong.GAME_HEIGHT - radius;
-			vy *= -1;
-		}
-
-	}
-
 	public void paint(Graphics g) {
 		g.setColor(Color.WHITE);
 		g.fillOval(x, y, radius, radius);
+	}
 
+	public void move() {
+		x += vx;
+		y += vy;
+		
+		if (y - radius <= 0) {
+			y = radius;
+			vy *= -1;
+		} else if (y + radius >= Pong.GAME_HEIGHT) {
+			y = Pong.GAME_HEIGHT - radius;
+			vy *= -1;
+		}
 	}
 
 	public int getX() {
