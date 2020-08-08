@@ -9,8 +9,11 @@ public class Pong {
 	private JFrame frame;
 	private JPanel panel; 
 	
+	
 	public Pong() {
 		
+		Paddle paddle = new Paddle(10, 10, 10, 10, 10, true);
+		Ball ball = new Ball(100, 100, 100);
 		
 		frame = new JFrame();
 		
@@ -23,7 +26,6 @@ public class Pong {
 		frame.setResizable(false);
 		frame.setVisible(true);
 		
-		new Paddle(10, 10, 10, 10, 10, true);
 		
 	}
 	
