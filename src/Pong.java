@@ -22,7 +22,6 @@ public class Pong {
 
 	private int leftScore;
 	private int rightScore;
-	private int nvx, nvy;
 	private boolean started;
 	private boolean ended;
 	private String winner;
@@ -95,8 +94,8 @@ public class Pong {
 				p1.reset(20, GAME_HEIGHT/2-40);
 				p2.reset(GAME_WIDTH-28, GAME_HEIGHT/2-40);
 				
-				nvx = ThreadLocalRandom.current().nextInt(4, 6+1);
-				nvy = (ThreadLocalRandom.current().nextBoolean() ? 1 : -1) * ThreadLocalRandom.current().nextInt(4, nvx+1);
+				int nvx = ThreadLocalRandom.current().nextInt(4, 6+1);
+				int nvy = (ThreadLocalRandom.current().nextBoolean() ? 1 : -1) * ThreadLocalRandom.current().nextInt(4, nvx+1);
 
 				if(leftScore == POINTS_TO_WIN) {	
 					ball.reset(GAME_WIDTH/2-10, GAME_HEIGHT/2-10, nvx, nvy);
