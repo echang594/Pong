@@ -4,8 +4,8 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 public class Paddle {
-	private int x;
-	private int y;
+	public int x;
+	public int y;
 	private int width;
 	private int height;
 	private int speed;
@@ -44,4 +44,13 @@ public class Paddle {
 	public boolean isLeft() {
 		return left;
 	}
+	
+	public int getX() {
+		return x;
+	}
+	
+	public int getY() {
+		return y;
+	}
+	
 }

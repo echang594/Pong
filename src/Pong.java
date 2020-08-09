@@ -8,8 +8,7 @@ public class Pong {
 	public static final int GAME_WIDTH = 1024;
 	public static final int GAME_HEIGHT = 512;
 
-	private Paddle p1;
-	private Paddle p2;
+	private Paddle p1, p2;
 	private Ball ball;
 
 	private JFrame frame;
@@ -20,17 +19,17 @@ public class Pong {
 	private int rightScore = 0;
 	
 	public Pong() {
-		p1 = new Paddle(10, GAME_HEIGHT/2-28, 4, 56, 2, true);
-		p2 = new Paddle(GAME_WIDTH-14, GAME_HEIGHT/2-28, 4, 56, 2, false);
-		ball = new Ball(GAME_WIDTH/2, GAME_HEIGHT/2, 5, 5, 20);
+		p1 = new Paddle(10, GAME_HEIGHT/2-28, 4, 56, 4, true);
+		p2 = new Paddle(GAME_WIDTH-14, GAME_HEIGHT/2-28, 4, 56, 4, false);
+		ball = new Ball(GAME_WIDTH/2 - 10, GAME_HEIGHT/2, 5, 5, 20);
 
 		frame = new JFrame();
 
 		frame.setBounds(100, 100, GAME_WIDTH, GAME_HEIGHT);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setResizable(false);
+		frame.setResizable(true);
 		frame.setTitle("Pong");
-		
+
 		panel = new JPanel() {
 			private static final long serialVersionUID = 1L;
 
@@ -43,14 +42,18 @@ public class Pong {
 				g.drawLine(512, 0, 512, 512);
 			}
 		};
+		
+		
 		panel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("pressed W"), "W");
 		panel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("released W"), "released1");
 		panel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("pressed S"), "S");
 		panel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("released S"), "released1");
+		
 		panel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("pressed UP"), "UP");
 		panel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("released UP"), "released2");
 		panel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("pressed DOWN"), "DOWN");
 		panel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("released DOWN"), "released2");
+		
 		panel.getActionMap().put("W", new AbstractAction() {
 			private static final long serialVersionUID = 1L;
 
@@ -121,13 +124,14 @@ public class Pong {
 		
 		
 
-		if(ball.getX() == 0) {
+		if (ball.getX() == 0) {
 			leftScore++;
 		}
 		else if(ball.getX() == GAME_WIDTH) {
 			rightScore++;
 		}
 
+		
 		JLabel labelL = new JLabel(leftScore + "");
 		JLabel labelR = new JLabel(rightScore + "");
 		labelL.setForeground(Color.WHITE);	

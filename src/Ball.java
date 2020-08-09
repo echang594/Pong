@@ -20,23 +20,17 @@ public class Ball {
 		x += vx;
 		y += vy;
 
-		if (x <= -1*radius) {
-			// update score (+1 for right)
-			// play again/quit gui
-		} else if (x >= Pong.GAME_WIDTH - radius) {
-			// update score (+1 for left)
-			// play again/quit gui
-		}
+		// make it so when ball hits paddel ball bounces off of paddel 
+		// also ren is straight 
 
 		if (y <= 0) {
 			y = radius;
 			vy *= -1;
-		} else if (y >= Pong.GAME_HEIGHT - radius) {
-			// bounces too low by a little bit
-			y = Pong.GAME_HEIGHT - radius;
+		} else if (y >= Pong.GAME_HEIGHT - radius - 25) {
+			y = Pong.GAME_HEIGHT - radius - 25;
 			vy *= -1;
 		}
-
+		
 	}
 
 	public void paint(Graphics g) {
