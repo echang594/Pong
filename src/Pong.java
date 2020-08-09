@@ -24,7 +24,9 @@ public class Pong {
 	private int rightScore;
 	private boolean started;
 	private boolean ended;
-	private String winner; 
+	private String winner;
+	
+	private int nvx, nvy;
 
 	public Pong() {
 		leftScore = 0;
@@ -70,9 +72,26 @@ public class Pong {
 					g.drawString(winner + "wins!", GAME_WIDTH/4, GAME_HEIGHT/4 + 20);
 					g.setFont(new Font("Comic Sans MS", Font.PLAIN, 50));
 					g.drawString("Press SPACE to restart", GAME_WIDTH/5, GAME_HEIGHT*2/3+20);
+					
 					// restarts game
 					// score reset
 					// randomized direction
+					
+					nvx = ThreadLocalRandom.current().nextInt(4, 6+1);
+					nvy = (ThreadLocalRandom.current().nextBoolean() ? 1 : -1) * ThreadLocalRandom.current().nextInt(4, nvx+1);
+
+					if(leftScore == 1) {	
+						ball.reset(GAME_WIDTH/2-10, GAME_HEIGHT/2-10, nvx, nvy);
+						leftScore = 0;
+						
+					}
+					else if(rightScore == 1) {
+						ball.reset(GAME_WIDTH/2-10, GAME_HEIGHT/2-10, -nvx, nvy);
+						rightScore = 0;
+						
+					}
+					
+					
 				}
 			}
 		};
@@ -93,6 +112,9 @@ public class Pong {
 				started = true;
 				labelL.setVisible(true);
 				labelR.setVisible(true);
+				ended = false;
+				labelL.setText(leftScore + "");
+				labelR.setText(rightScore + "");
 			}
 		});
 		panel.getActionMap().put("W", new AbstractAction() {
@@ -183,25 +205,21 @@ public class Pong {
 					if(ball.getX() <= 0) {
 						rightScore++;
 						labelR.setText(rightScore + "");
-						int nvx = ThreadLocalRandom.current().nextInt(4, 6+1);
-						int nvy = (ThreadLocalRandom.current().nextBoolean() ? 1 : -1) * ThreadLocalRandom.current().nextInt(4, nvx+1);
-						ball.reset(GAME_WIDTH/2-10, GAME_HEIGHT/2-10, -nvx, nvy);
+						if (rightScore == 1) {
+							ended = true;
+							winner = "Right side " ;
+						}
 					}
 					else if(ball.getX() >= GAME_WIDTH) {
 						leftScore++;
 						labelL.setText(leftScore + "");
-						int nvx = ThreadLocalRandom.current().nextInt(4, 6+1);
-						int nvy = (ThreadLocalRandom.current().nextBoolean() ? 1 : -1) * ThreadLocalRandom.current().nextInt(4, nvx+1);
-						ball.reset(GAME_WIDTH/2-10, GAME_HEIGHT/2-10, nvx, nvy);
+						if (leftScore == 1) {
+							ended = true;
+							winner = "Left side ";
+						}
+						
 					}
-					else if (leftScore == 1) {
-						ended = true;
-						winner = "Left side ";
-					}
-					else if (rightScore == 1) {
-						ended = true;
-						winner = "Right side " ;
-					}
+					
 				}
 
 				frame.repaint();
