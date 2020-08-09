@@ -72,4 +72,12 @@ public class Ball {
 	public int getY() {
 		return y;
 	}
+
+	public int getRadius() {
+		return radius;
+	}
+
+	public int getDiameter() {
+		return diameter;
+	}
 }

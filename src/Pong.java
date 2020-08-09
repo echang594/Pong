@@ -92,6 +92,9 @@ public class Pong {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				started = true;
+				ended = false;
+
 				p1.reset(20, GAME_HEIGHT / 2 - 40);
 				p2.reset(GAME_WIDTH - 28, GAME_HEIGHT / 2 - 40);
 
@@ -101,15 +104,16 @@ public class Pong {
 
 				if (leftScore == POINTS_TO_WIN) {
 					ball.reset(GAME_WIDTH / 2 - 10, GAME_HEIGHT / 2 - 10, nvx, nvy);
-					leftScore = 0;
 				} else if (rightScore == POINTS_TO_WIN) {
 					ball.reset(GAME_WIDTH / 2 - 10, GAME_HEIGHT / 2 - 10, -nvx, nvy);
-					rightScore = 0;
 				}
-				started = true;
-				ended = false;
+
+				leftScore = 0;
+				rightScore = 0;
+
 				labelL.setText(leftScore + "");
 				labelR.setText(rightScore + "");
+
 				labelL.setVisible(true);
 				labelR.setVisible(true);
 			}
@@ -199,20 +203,19 @@ public class Pong {
 					ball.checkCollision(p1);
 					ball.checkCollision(p2);
 
-					if (ball.getX() <= 0) {
+					if (ball.getX() + ball.getDiameter() <= 0) {
 						rightScore++;
 						labelR.setText(rightScore + "");
 
 						if (rightScore == POINTS_TO_WIN) {
 							ended = true;
 							winner = "Right side";
+						} else {
+							int nvx = ThreadLocalRandom.current().nextInt(4, 6 + 1);
+							int nvy = (ThreadLocalRandom.current().nextBoolean() ? 1 : -1)
+									* ThreadLocalRandom.current().nextInt(4, nvx + 1);
+							ball.reset(GAME_WIDTH / 2 - 10, GAME_HEIGHT / 2 - 10, -nvx, nvy);
 						}
-
-						int nvx = ThreadLocalRandom.current().nextInt(4, 6 + 1);
-						int nvy = (ThreadLocalRandom.current().nextBoolean() ? 1 : -1)
-								* ThreadLocalRandom.current().nextInt(4, nvx + 1);
-						ball.reset(GAME_WIDTH / 2 - 10, GAME_HEIGHT / 2 - 10, -nvx, nvy);
-
 					} else if (ball.getX() >= GAME_WIDTH) {
 						leftScore++;
 						labelL.setText(leftScore + "");
@@ -220,12 +223,12 @@ public class Pong {
 						if (leftScore == POINTS_TO_WIN) {
 							ended = true;
 							winner = "Left side";
+						} else {
+							int nvx = ThreadLocalRandom.current().nextInt(4, 6 + 1);
+							int nvy = (ThreadLocalRandom.current().nextBoolean() ? 1 : -1)
+									* ThreadLocalRandom.current().nextInt(4, nvx + 1);
+							ball.reset(GAME_WIDTH / 2 - 10, GAME_HEIGHT / 2 - 10, nvx, nvy);
 						}
-
-						int nvx = ThreadLocalRandom.current().nextInt(4, 6 + 1);
-						int nvy = (ThreadLocalRandom.current().nextBoolean() ? 1 : -1)
-								* ThreadLocalRandom.current().nextInt(4, nvx + 1);
-						ball.reset(GAME_WIDTH / 2 - 10, GAME_HEIGHT / 2 - 10, nvx, nvy);
 					}
 				}
 				frame.repaint();
