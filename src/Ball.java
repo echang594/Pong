@@ -1,7 +1,7 @@
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Graphics;
 import java.awt.Image;
-import java.awt.image.ImageObserver;
 import javax.swing.ImageIcon;
 
 public class Ball {
@@ -11,7 +11,7 @@ public class Ball {
 	private int vy;
 	private int radius;
 	private int diameter;
-	private Image image;
+	private ImageIcon imageIcon;
 
 	public Ball(int x, int y, int vx, int vy, int radius, String filename) {
 		this.x = x;
@@ -20,12 +20,13 @@ public class Ball {
 		this.vy = vy;
 		this.radius = radius;
 		diameter = radius * 2;
-		image = new ImageIcon(filename).getImage();
+		Image image = new ImageIcon(filename).getImage();
+		imageIcon = new ImageIcon(image.getScaledInstance(diameter, diameter, Image.SCALE_DEFAULT));
 	}
 
-	public void paint(Graphics g, ImageObserver io) {
+	public void paint(Graphics g, Component c) {
 		g.setColor(Color.WHITE);
-		g.drawImage(image, x, y, radius, radius, io);
+		imageIcon.paintIcon(c, g, x, y);
 	}
 
 	public void move() {

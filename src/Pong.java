@@ -37,7 +37,7 @@ public class Pong {
 		int vx = (ThreadLocalRandom.current().nextBoolean() ? 1 : -1) * ThreadLocalRandom.current().nextInt(4, 6 + 1);
 		int vy = (ThreadLocalRandom.current().nextBoolean() ? 1 : -1)
 				* ThreadLocalRandom.current().nextInt(4, Math.abs(vx) + 1);
-		ball = new Ball(GAME_WIDTH / 2 - 25, GAME_HEIGHT / 2 - 25, vx, vy, 50, "coronavirus.png");
+		ball = new Ball(GAME_WIDTH / 2 - 10, GAME_HEIGHT / 2 - 10, vx, vy, 20, "coronavirus.png");
 
 		frame = new JFrame();
 
@@ -65,7 +65,7 @@ public class Pong {
 				} else {
 					p1.paint(g);
 					p2.paint(g);
-					ball.paint(g, this);
+					ball.paint(g, panel);
 					g.setColor(Color.WHITE);
 					g.drawLine(GAME_WIDTH / 2, 0, GAME_WIDTH / 2, GAME_HEIGHT);
 				}
@@ -103,9 +103,9 @@ public class Pong {
 						* ThreadLocalRandom.current().nextInt(4, nvx + 1);
 
 				if (leftScore == POINTS_TO_WIN) {
-					ball.reset(GAME_WIDTH / 2 - 25, GAME_HEIGHT / 2 - 25, nvx, nvy);
+					ball.reset(GAME_WIDTH / 2 - 10, GAME_HEIGHT / 2 - 10, nvx, nvy);
 				} else if (rightScore == POINTS_TO_WIN) {
-					ball.reset(GAME_WIDTH / 2 - 25, GAME_HEIGHT / 2 - 25, -nvx, nvy);
+					ball.reset(GAME_WIDTH / 2 - 10, GAME_HEIGHT / 2 - 10, -nvx, nvy);
 				}
 
 				leftScore = 0;
@@ -214,7 +214,7 @@ public class Pong {
 							int nvx = ThreadLocalRandom.current().nextInt(4, 6 + 1);
 							int nvy = (ThreadLocalRandom.current().nextBoolean() ? 1 : -1)
 									* ThreadLocalRandom.current().nextInt(4, nvx + 1);
-							ball.reset(GAME_WIDTH / 2 - 25, GAME_HEIGHT / 2 - 25, -nvx, nvy);
+							ball.reset(GAME_WIDTH / 2 - 10, GAME_HEIGHT / 2 - 10, -nvx, nvy);
 						}
 					} else if (ball.getX() >= GAME_WIDTH) {
 						leftScore++;
@@ -227,7 +227,7 @@ public class Pong {
 							int nvx = ThreadLocalRandom.current().nextInt(4, 6 + 1);
 							int nvy = (ThreadLocalRandom.current().nextBoolean() ? 1 : -1)
 									* ThreadLocalRandom.current().nextInt(4, nvx + 1);
-							ball.reset(GAME_WIDTH / 2 - 25, GAME_HEIGHT / 2 - 25, nvx, nvy);
+							ball.reset(GAME_WIDTH / 2 - 10, GAME_HEIGHT / 2 - 10, nvx, nvy);
 						}
 					}
 				}
