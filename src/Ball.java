@@ -73,8 +73,4 @@ public class Ball {
 		return radius;
 	}
 
-	public boolean isInContact() {
-		return false;
-	}
-
 }

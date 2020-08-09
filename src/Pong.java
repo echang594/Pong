@@ -16,6 +16,9 @@ public class Pong {
 	private JPanel panel;
 	private Timer timer;
 	
+	private JLabel labelL;
+	private JLabel labelR;
+	
 	private int leftScore = 0;
 	private int rightScore = 0;
 	
@@ -25,7 +28,9 @@ public class Pong {
 		ball = new Ball(GAME_WIDTH/2, GAME_HEIGHT/2, 5, 5, 20);
 
 		frame = new JFrame();
-
+		labelL = new JLabel(leftScore + "");
+		labelR = new JLabel(rightScore + "");
+		
 		frame.setBounds(100, 100, GAME_WIDTH, GAME_HEIGHT);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setResizable(false);
@@ -104,6 +109,19 @@ public class Pong {
 		frame.add(panel);
 		frame.setVisible(true);
 		
+		panel.setLayout(null);
+		panel.add(labelL);
+		panel.add(labelR);
+		
+		labelL.setForeground(Color.WHITE);	
+		labelR.setForeground(Color.WHITE);
+		labelL.setLocation(412, 0);
+		labelL.setSize(100, 100);
+		labelL.setFont(new Font("Serif", Font.PLAIN, 100));
+		labelR.setLocation(562, 0);
+		labelR.setSize(100, 100);
+		labelR.setFont(new Font("Serif", Font.PLAIN, 100));
+		
 		timer = new Timer(10, new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -113,35 +131,23 @@ public class Pong {
 				ball.checkCollision(p1);
 				ball.checkCollision(p2);
 				frame.repaint();
+				
+				if(ball.getX() <= 0) {
+					rightScore++;
+					labelR.setText(rightScore + "");
+					ball.setX(GAME_WIDTH/2);
+					ball.setY(GAME_HEIGHT/2);
+				}
+				else if(ball.getX() >= GAME_WIDTH) {
+					leftScore++;
+					labelL.setText(leftScore + "");
+					ball.setX(GAME_WIDTH/2);
+					ball.setY(GAME_HEIGHT/2);
+
+				}
 			}
 		});
 		timer.start();
-		
-		
-		
-		panel.setLayout(null);
-		
-		
-
-		if(ball.getX() <= 0) {
-			leftScore++;
-		}
-		else if(ball.getX() >= GAME_WIDTH) {
-			rightScore++;
-		}
-
-		JLabel labelL = new JLabel(leftScore + "");
-		JLabel labelR = new JLabel(rightScore + "");
-		labelL.setForeground(Color.WHITE);	
-		labelR.setForeground(Color.WHITE);
-		panel.add(labelL);
-		panel.add(labelR);
-		labelL.setLocation(412, 0);
-		labelL.setSize(100, 100);
-		labelL.setFont(new Font("Serif", Font.PLAIN, 100));
-		labelR.setLocation(562, 0);
-		labelR.setSize(100, 100);
-		labelR.setFont(new Font("Serif", Font.PLAIN, 100));
 	}
 	
 	public static void main(String[] args) {
