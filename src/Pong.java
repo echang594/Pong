@@ -31,12 +31,13 @@ public class Pong {
 		rightScore = 0;
 		started = false;
 		ended = false;
-		
-		p1 = new Paddle(20, GAME_HEIGHT/2-40, 8, 80, 4);
-		p2 = new Paddle(GAME_WIDTH-28, GAME_HEIGHT/2-40, 8, 80, 4);
-		int vx = (ThreadLocalRandom.current().nextBoolean() ? 1 : -1) * ThreadLocalRandom.current().nextInt(4, 6+1);
-		int vy = (ThreadLocalRandom.current().nextBoolean() ? 1 : -1) * ThreadLocalRandom.current().nextInt(4, Math.abs(vx)+1);
-		ball = new Ball(GAME_WIDTH/2-10, GAME_HEIGHT/2-10, vx, vy, 50, "coronavirus.png");
+
+		p1 = new Paddle(20, GAME_HEIGHT / 2 - 40, 8, 80, 4);
+		p2 = new Paddle(GAME_WIDTH - 28, GAME_HEIGHT / 2 - 40, 8, 80, 4);
+		int vx = (ThreadLocalRandom.current().nextBoolean() ? 1 : -1) * ThreadLocalRandom.current().nextInt(4, 6 + 1);
+		int vy = (ThreadLocalRandom.current().nextBoolean() ? 1 : -1)
+				* ThreadLocalRandom.current().nextInt(4, Math.abs(vx) + 1);
+		ball = new Ball(GAME_WIDTH / 2 - 10, GAME_HEIGHT / 2 - 10, vx, vy, 50, "coronavirus.png");
 
 		frame = new JFrame();
 
@@ -51,29 +52,29 @@ public class Pong {
 			@Override
 			public void paintComponent(Graphics g) {
 				super.paintComponent(g);
-				if(!started && !ended) {
+				if (!started && !ended) {
 					g.setColor(Color.WHITE);
 					g.setFont(new Font("Comic Sans MS", Font.PLAIN, 150));
-					g.drawString("Pong", GAME_WIDTH/3, GAME_HEIGHT/2 - 40);
-					
+					g.drawString("Pong", GAME_WIDTH / 3, GAME_HEIGHT / 2 - 40);
+
 					g.setFont(new Font("Comic Sans MS", Font.PLAIN, 30));
-					g.drawString("Deflect the virus and don't get infected", GAME_WIDTH/4 - 60, GAME_HEIGHT/2 + 45);
-					
+					g.drawString("Deflect the virus and don't get infected", GAME_WIDTH / 4 - 60, GAME_HEIGHT / 2 + 45);
+
 					g.setFont(new Font("Comic Sans MS", Font.PLAIN, 50));
-					g.drawString("Press SPACE to start", GAME_WIDTH/5, GAME_HEIGHT*2/3+70);
+					g.drawString("Press SPACE to start", GAME_WIDTH / 5, GAME_HEIGHT * 2 / 3 + 70);
 				} else {
 					p1.paint(g);
 					p2.paint(g);
 					ball.paint(g, this);
 					g.setColor(Color.WHITE);
-					g.drawLine(GAME_WIDTH/2, 0, GAME_WIDTH/2, GAME_HEIGHT);
+					g.drawLine(GAME_WIDTH / 2, 0, GAME_WIDTH / 2, GAME_HEIGHT);
 				}
-				if(started && ended) {
+				if (started && ended) {
 					g.setColor(Color.WHITE);
 					g.setFont(new Font("Comic Sans MS", Font.PLAIN, 60));
-					g.drawString(winner + " wins!", GAME_WIDTH/4, GAME_HEIGHT/4 + 20);
+					g.drawString(winner + " wins!", GAME_WIDTH / 4, GAME_HEIGHT / 4 + 20);
 					g.setFont(new Font("Comic Sans MS", Font.PLAIN, 50));
-					g.drawString("Press SPACE to restart", GAME_WIDTH/5, GAME_HEIGHT*2/3+20);
+					g.drawString("Press SPACE to restart", GAME_WIDTH / 5, GAME_HEIGHT * 2 / 3 + 20);
 				}
 			}
 		};
@@ -88,21 +89,21 @@ public class Pong {
 		panel.getInputMap().put(KeyStroke.getKeyStroke("released DOWN"), "released2");
 		panel.getActionMap().put("START", new AbstractAction() {
 			private static final long serialVersionUID = 1L;
-			
+
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				p1.reset(20, GAME_HEIGHT/2-40);
-				p2.reset(GAME_WIDTH-28, GAME_HEIGHT/2-40);
-				
-				int nvx = ThreadLocalRandom.current().nextInt(4, 6+1);
-				int nvy = (ThreadLocalRandom.current().nextBoolean() ? 1 : -1) * ThreadLocalRandom.current().nextInt(4, nvx+1);
+				p1.reset(20, GAME_HEIGHT / 2 - 40);
+				p2.reset(GAME_WIDTH - 28, GAME_HEIGHT / 2 - 40);
 
-				if(leftScore == POINTS_TO_WIN) {	
-					ball.reset(GAME_WIDTH/2-10, GAME_HEIGHT/2-10, nvx, nvy);
+				int nvx = ThreadLocalRandom.current().nextInt(4, 6 + 1);
+				int nvy = (ThreadLocalRandom.current().nextBoolean() ? 1 : -1)
+						* ThreadLocalRandom.current().nextInt(4, nvx + 1);
+
+				if (leftScore == POINTS_TO_WIN) {
+					ball.reset(GAME_WIDTH / 2 - 10, GAME_HEIGHT / 2 - 10, nvx, nvy);
 					leftScore = 0;
-				}
-				else if(rightScore == POINTS_TO_WIN) {
-					ball.reset(GAME_WIDTH/2-10, GAME_HEIGHT/2-10, -nvx, nvy);
+				} else if (rightScore == POINTS_TO_WIN) {
+					ball.reset(GAME_WIDTH / 2 - 10, GAME_HEIGHT / 2 - 10, -nvx, nvy);
 					rightScore = 0;
 				}
 				started = true;
@@ -181,7 +182,7 @@ public class Pong {
 		b.add(labelL);
 		b.add(Box.createRigidArea(new Dimension(100, 0)));
 		b.add(labelR);
-		
+
 		panel.add(b);
 
 		frame.add(panel);
@@ -191,14 +192,14 @@ public class Pong {
 		timer = new Timer(10, new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if(started && !ended) {
+				if (started && !ended) {
 					ball.move();
 					p1.move();
 					p2.move();
 					ball.checkCollision(p1);
 					ball.checkCollision(p2);
-	
-					if(ball.getX() <= 0) {
+
+					if (ball.getX() <= 0) {
 						rightScore++;
 						labelR.setText(rightScore + "");
 
@@ -206,13 +207,13 @@ public class Pong {
 							ended = true;
 							winner = "Right side";
 						}
-						
-						int nvx = ThreadLocalRandom.current().nextInt(4, 6+1);
-						int nvy = (ThreadLocalRandom.current().nextBoolean() ? 1 : -1) * ThreadLocalRandom.current().nextInt(4, nvx+1);
-						ball.reset(GAME_WIDTH/2-10, GAME_HEIGHT/2-10, -nvx, nvy);
 
-					}
-					else if(ball.getX() >= GAME_WIDTH) {
+						int nvx = ThreadLocalRandom.current().nextInt(4, 6 + 1);
+						int nvy = (ThreadLocalRandom.current().nextBoolean() ? 1 : -1)
+								* ThreadLocalRandom.current().nextInt(4, nvx + 1);
+						ball.reset(GAME_WIDTH / 2 - 10, GAME_HEIGHT / 2 - 10, -nvx, nvy);
+
+					} else if (ball.getX() >= GAME_WIDTH) {
 						leftScore++;
 						labelL.setText(leftScore + "");
 
@@ -220,10 +221,11 @@ public class Pong {
 							ended = true;
 							winner = "Left side";
 						}
-						
-						int nvx = ThreadLocalRandom.current().nextInt(4, 6+1);
-						int nvy = (ThreadLocalRandom.current().nextBoolean() ? 1 : -1) * ThreadLocalRandom.current().nextInt(4, nvx+1);
-						ball.reset(GAME_WIDTH/2-10, GAME_HEIGHT/2-10, nvx, nvy);
+
+						int nvx = ThreadLocalRandom.current().nextInt(4, 6 + 1);
+						int nvy = (ThreadLocalRandom.current().nextBoolean() ? 1 : -1)
+								* ThreadLocalRandom.current().nextInt(4, nvx + 1);
+						ball.reset(GAME_WIDTH / 2 - 10, GAME_HEIGHT / 2 - 10, nvx, nvy);
 					}
 				}
 				frame.repaint();

@@ -25,7 +25,7 @@ public class Ball {
 
 	public void paint(Graphics g, ImageObserver io) {
 		g.setColor(Color.WHITE);
-		g.drawImage(image,x,y,radius,radius,io);
+		g.drawImage(image, x, y, radius, radius, io);
 	}
 
 	public void move() {
@@ -48,16 +48,16 @@ public class Ball {
 		int cy = Math.max(p.getY(), Math.min(p.getY() + p.getHeight(), by));
 		int dx = bx - cx;
 		int dy = by - cy;
-		if(dx * dx + dy * dy <= radius * radius) {
+		if (dx * dx + dy * dy <= radius * radius) {
 			vx = -vx;
-			if(vx > 0) {
+			if (vx > 0) {
 				x = p.getX() + p.getWidth() + 1;
 			} else {
 				x = p.getX() - diameter - 1;
 			}
 		}
 	}
-	
+
 	public void reset(int x, int y, int vx, int vy) {
 		this.x = x;
 		this.y = y;
