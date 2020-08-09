@@ -23,6 +23,8 @@ public class Pong {
 	private int leftScore;
 	private int rightScore;
 	private boolean started;
+	private boolean ended;
+	private String winner; 
 
 	public Pong() {
 		leftScore = 0;
@@ -48,7 +50,7 @@ public class Pong {
 			@Override
 			public void paintComponent(Graphics g) {
 				super.paintComponent(g);
-				if(!started) {
+				if(started == false && ended == false) {
 					g.setColor(Color.WHITE);
 					g.setFont(new Font("Comic Sans MS", Font.PLAIN, 150));
 					g.drawString("Pong", GAME_WIDTH/3, GAME_HEIGHT/2-20);
@@ -60,6 +62,17 @@ public class Pong {
 					ball.paint(g);
 					g.setColor(Color.WHITE);
 					g.drawLine(GAME_WIDTH/2, 0, GAME_WIDTH/2, GAME_HEIGHT);
+				}
+				if(ended) {
+					started = false;
+					g.setColor(Color.WHITE);
+					g.setFont(new Font("Comic Sans MS", Font.PLAIN, 60));
+					g.drawString(winner + "wins!", GAME_WIDTH/4, GAME_HEIGHT/4 + 20);
+					g.setFont(new Font("Comic Sans MS", Font.PLAIN, 50));
+					g.drawString("Press SPACE to restart", GAME_WIDTH/5, GAME_HEIGHT*2/3+20);
+					// restarts game
+					// score reset
+					// randomized direction
 				}
 			}
 		};
@@ -180,6 +193,14 @@ public class Pong {
 						int nvx = ThreadLocalRandom.current().nextInt(4, 6+1);
 						int nvy = (ThreadLocalRandom.current().nextBoolean() ? 1 : -1) * ThreadLocalRandom.current().nextInt(4, nvx+1);
 						ball.reset(GAME_WIDTH/2-10, GAME_HEIGHT/2-10, nvx, nvy);
+					}
+					else if (leftScore == 1) {
+						ended = true;
+						winner = "Left side ";
+					}
+					else if (rightScore == 1) {
+						ended = true;
+						winner = "Right side " ;
 					}
 				}
 
