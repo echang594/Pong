@@ -22,16 +22,16 @@ public class Pong {
 
 	private int leftScore;
 	private int rightScore;
+	private int nvx, nvy;
 	private boolean started;
 	private boolean ended;
 	private String winner;
-	
-	private int nvx, nvy;
 
 	public Pong() {
 		leftScore = 0;
 		rightScore = 0;
 		started = false;
+		ended = false;
 		
 		p1 = new Paddle(20, GAME_HEIGHT/2-40, 8, 80, 4);
 		p2 = new Paddle(GAME_WIDTH-28, GAME_HEIGHT/2-40, 8, 80, 4);
@@ -52,7 +52,7 @@ public class Pong {
 			@Override
 			public void paintComponent(Graphics g) {
 				super.paintComponent(g);
-				if(started == false && ended == false) {
+				if(!started && !ended) {
 					g.setColor(Color.WHITE);
 					g.setFont(new Font("Comic Sans MS", Font.PLAIN, 150));
 					g.drawString("Pong", GAME_WIDTH/3, GAME_HEIGHT/2 - 40);
@@ -73,7 +73,7 @@ public class Pong {
 					started = false;
 					g.setColor(Color.WHITE);
 					g.setFont(new Font("Comic Sans MS", Font.PLAIN, 60));
-					g.drawString(winner + "wins!", GAME_WIDTH/4, GAME_HEIGHT/4 + 20);
+					g.drawString(winner + " wins!", GAME_WIDTH/4, GAME_HEIGHT/4 + 20);
 					g.setFont(new Font("Comic Sans MS", Font.PLAIN, 50));
 					g.drawString("Press SPACE to restart", GAME_WIDTH/5, GAME_HEIGHT*2/3+20);
 					
@@ -81,21 +81,20 @@ public class Pong {
 					// score reset
 					// randomized direction
 					
+					p1.reset(20, GAME_HEIGHT/2-40);
+					p2.reset(GAME_WIDTH-28, GAME_HEIGHT/2-40);
+					
 					nvx = ThreadLocalRandom.current().nextInt(4, 6+1);
 					nvy = (ThreadLocalRandom.current().nextBoolean() ? 1 : -1) * ThreadLocalRandom.current().nextInt(4, nvx+1);
 
 					if(leftScore == 1) {	
 						ball.reset(GAME_WIDTH/2-10, GAME_HEIGHT/2-10, nvx, nvy);
 						leftScore = 0;
-						
 					}
 					else if(rightScore == 1) {
 						ball.reset(GAME_WIDTH/2-10, GAME_HEIGHT/2-10, -nvx, nvy);
 						rightScore = 0;
-						
 					}
-					
-					
 				}
 			}
 		};
@@ -114,11 +113,11 @@ public class Pong {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				started = true;
-				labelL.setVisible(true);
-				labelR.setVisible(true);
 				ended = false;
 				labelL.setText(leftScore + "");
 				labelR.setText(rightScore + "");
+				labelL.setVisible(true);
+				labelR.setVisible(true);
 			}
 		});
 		panel.getActionMap().put("W", new AbstractAction() {
@@ -199,7 +198,7 @@ public class Pong {
 		timer = new Timer(10, new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if(started) {
+				if(started && !ended) {
 					ball.move();
 					p1.move();
 					p2.move();
@@ -210,14 +209,13 @@ public class Pong {
 						rightScore++;
 						labelR.setText(rightScore + "");
 
-						if (rightScore == 1) {
+						if (rightScore == 2) {
 							ended = true;
-							winner = "Right side " ;
+							winner = "Right side";
 						}
-
+						
 						int nvx = ThreadLocalRandom.current().nextInt(4, 6+1);
 						int nvy = (ThreadLocalRandom.current().nextBoolean() ? 1 : -1) * ThreadLocalRandom.current().nextInt(4, nvx+1);
-						p1.reset(20, GAME_HEIGHT/2-40);
 						ball.reset(GAME_WIDTH/2-10, GAME_HEIGHT/2-10, -nvx, nvy);
 
 					}
@@ -225,27 +223,15 @@ public class Pong {
 						leftScore++;
 						labelL.setText(leftScore + "");
 
-						if (leftScore == 1) {
+						if (leftScore == 2) {
 							ended = true;
-							winner = "Left side ";
+							winner = "Left side";
 						}
 						
-
 						int nvx = ThreadLocalRandom.current().nextInt(4, 6+1);
 						int nvy = (ThreadLocalRandom.current().nextBoolean() ? 1 : -1) * ThreadLocalRandom.current().nextInt(4, nvx+1);
-						p2.reset(GAME_WIDTH-28, GAME_HEIGHT/2-40);
 						ball.reset(GAME_WIDTH/2-10, GAME_HEIGHT/2-10, nvx, nvy);
 					}
-					else if (leftScore == 5) {
-						ended = true;
-						winner = "Left side ";
-					}
-					else if (rightScore == 5) {
-						ended = true;
-						winner = "Right side ";
-
-					}
-					
 				}
 
 				frame.repaint();
