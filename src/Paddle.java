@@ -39,6 +39,22 @@ public class Paddle {
 		direction = d;
 	}
 	
+	public int getX() {
+		return x;
+	}
+
+	public int getY() {
+		return y;
+	}
+
+	public int getWidth() {
+		return width;
+	}
+
+	public int getHeight() {
+		return height;
+	}
+
 	public boolean isLeft() {
 		return left;
 	}

@@ -24,7 +24,7 @@ public class Ball {
 	public void move() {
 		x += vx;
 		y += vy;
-		
+
 		if (y - radius <= 0) {
 			y = radius;
 			vy *= -1;
@@ -32,6 +32,25 @@ public class Ball {
 			y = Pong.GAME_HEIGHT - radius;
 			vy *= -1;
 		}
+	}
+
+	public void checkCollision(Paddle p) {
+		if (p.isLeft()) {
+			if (x <= p.getX() + p.getWidth() && y <= p.getY() + p.getHeight() && y + 2 * radius >= p.getY()) {
+				vx *= -1;
+			}
+		} else {
+			if (x + 2 * radius >= p.getX() && y <= p.getY() + p.getHeight() && y + 2 * radius >= p.getY()) {
+				vx *= -1;
+			}
+		}
+	}
+
+	public void reset(int x, int y, int vx, int vy) {
+		this.x = x;
+		this.y = y;
+		this.vx = vx;
+		this.vy = vy;
 	}
 
 	public int getX() {
@@ -57,5 +76,5 @@ public class Ball {
 	public boolean isInContact() {
 		return false;
 	}
-	
+
 }
