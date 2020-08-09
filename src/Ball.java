@@ -36,11 +36,13 @@ public class Ball {
 
 	public void checkCollision(Paddle p) {
 		if (p.isLeft()) {
-			if (x <= p.getX() + p.getWidth() && y <= p.getY() + p.getHeight() && y + 2 * radius >= p.getY()) {
+			if (x + 2 * radius >= p.getX() && x <= p.getX() + p.getWidth()
+					&& y <= p.getY() + p.getHeight() && y + 2 * radius >= p.getY()) {
 				vx *= -1;
 			}
 		} else {
-			if (x + 2 * radius >= p.getX() && y <= p.getY() + p.getHeight() && y + 2 * radius >= p.getY()) {
+			if (x <= p.getX() + p.getWidth() && x + 2 * radius >= p.getX()
+					&& y <= p.getY() + p.getHeight() && y + 2 * radius >= p.getY()) {
 				vx *= -1;
 			}
 		}
