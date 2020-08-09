@@ -2,23 +2,20 @@ import java.awt.Color;
 import java.awt.Graphics;
 
 public class Paddle {
-	public int x;
-	public int y;
+	private int x;
+	private int y;
 	private int width;
 	private int height;
 	private int speed;
 	private int direction;
-	private boolean left;
 	
-	public Paddle(int x, int y, int w, int h, int s, boolean l) {
+	public Paddle(int x, int y, int w, int h, int s) {
 		this.x = x;
 		this.y = y;
 		width = w;
 		height = h;
 		speed = s;
 		direction = 0;
-		left = l;
-		
 	}
 	
 	public void paint(Graphics g) {
@@ -54,10 +51,4 @@ public class Paddle {
 	public int getHeight() {
 		return height;
 	}
-
-	public boolean isLeft() {
-		return left;
-	}
-	
-	
 }
