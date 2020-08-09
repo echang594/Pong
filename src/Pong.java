@@ -2,7 +2,6 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.concurrent.ThreadLocalRandom;
-
 import javax.swing.*;
 
 public class Pong {
@@ -25,8 +24,6 @@ public class Pong {
 	private boolean started;
 	private boolean ended;
 	private String winner;
-	
-	private int nvx, nvy;
 
 	public Pong() {
 		leftScore = 0;
@@ -81,8 +78,8 @@ public class Pong {
 					// score reset
 					// randomized direction
 					
-					nvx = ThreadLocalRandom.current().nextInt(4, 6+1);
-					nvy = (ThreadLocalRandom.current().nextBoolean() ? 1 : -1) * ThreadLocalRandom.current().nextInt(4, nvx+1);
+					int nvx = ThreadLocalRandom.current().nextInt(4, 6+1);
+					int nvy = (ThreadLocalRandom.current().nextBoolean() ? 1 : -1) * ThreadLocalRandom.current().nextInt(4, nvx+1);
 
 					if(leftScore == 1) {	
 						ball.reset(GAME_WIDTH/2-10, GAME_HEIGHT/2-10, nvx, nvy);
@@ -214,11 +211,6 @@ public class Pong {
 							ended = true;
 							winner = "Right side " ;
 						}
-
-						int nvx = ThreadLocalRandom.current().nextInt(4, 6+1);
-						int nvy = (ThreadLocalRandom.current().nextBoolean() ? 1 : -1) * ThreadLocalRandom.current().nextInt(4, nvx+1);
-						ball.reset(GAME_WIDTH/2-10, GAME_HEIGHT/2-10, -nvx, nvy);
-
 					}
 					else if(ball.getX() >= GAME_WIDTH) {
 						leftScore++;
@@ -227,12 +219,7 @@ public class Pong {
 						if (leftScore == 1) {
 							ended = true;
 							winner = "Left side ";
-						}
-						
-
-						int nvx = ThreadLocalRandom.current().nextInt(4, 6+1);
-						int nvy = (ThreadLocalRandom.current().nextBoolean() ? 1 : -1) * ThreadLocalRandom.current().nextInt(4, nvx+1);
-						ball.reset(GAME_WIDTH/2-10, GAME_HEIGHT/2-10, nvx, nvy);
+						}	
 					}
 					else if (leftScore == 5) {
 						ended = true;
