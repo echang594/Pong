@@ -1,6 +1,7 @@
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.concurrent.ThreadLocalRandom;
 
 import javax.swing.*;
 
@@ -25,7 +26,9 @@ public class Pong {
 	public Pong() {
 		p1 = new Paddle(20, GAME_HEIGHT/2-40, 8, 80, 4);
 		p2 = new Paddle(GAME_WIDTH-28, GAME_HEIGHT/2-40, 8, 80, 4);
-		ball = new Ball(GAME_WIDTH/2, GAME_HEIGHT/2, 5, 5, 10);
+		int vx = (ThreadLocalRandom.current().nextBoolean() ? 1 : -1) * ThreadLocalRandom.current().nextInt(4, 6+1);
+		int vy = (ThreadLocalRandom.current().nextBoolean() ? 1 : -1) * ThreadLocalRandom.current().nextInt(4, Math.abs(vx)+1);
+		ball = new Ball(GAME_WIDTH/2-10, GAME_HEIGHT/2-10, vx, vy, 10);
 
 		frame = new JFrame();
 
@@ -138,16 +141,16 @@ public class Pong {
 				if(ball.getX() <= 0) {
 					rightScore++;
 					labelR.setText(rightScore + "");
-					ball.setX(GAME_WIDTH/2);
-					ball.setY(GAME_HEIGHT/2);
-					ball = new Ball(GAME_WIDTH/2, GAME_HEIGHT/2, -(int)(Math.random()*3) - 5, (int)(Math.random()*3) + 5, 20, 20);
+					int nvx = ThreadLocalRandom.current().nextInt(4, 6+1);
+					int nvy = (ThreadLocalRandom.current().nextBoolean() ? 1 : -1) * ThreadLocalRandom.current().nextInt(4, nvx+1);
+					ball.reset(GAME_WIDTH/2-10, GAME_HEIGHT/2-10, -nvx, nvy);
 				}
 				else if(ball.getX() >= GAME_WIDTH) {
 					leftScore++;
 					labelL.setText(leftScore + "");
-					ball.setX(GAME_WIDTH/2);
-					ball.setY(GAME_HEIGHT/2);
-					ball = new Ball(GAME_WIDTH/2, GAME_HEIGHT/2, (int)(Math.random()*3) + 5, (int)(Math.random()*3) + 5, 20, 20);
+					int nvx = ThreadLocalRandom.current().nextInt(4, 6+1);
+					int nvy = (ThreadLocalRandom.current().nextBoolean() ? 1 : -1) * ThreadLocalRandom.current().nextInt(4, nvx+1);
+					ball.reset(GAME_WIDTH/2-10, GAME_HEIGHT/2-10, nvx, nvy);
 				}
 
 				frame.repaint();
