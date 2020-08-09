@@ -20,10 +20,15 @@ public class Pong {
 	private JLabel labelL;
 	private JLabel labelR;
 
-	private int leftScore = 0;
-	private int rightScore = 0;
+	private int leftScore;
+	private int rightScore;
+	private boolean started;
 
 	public Pong() {
+		leftScore = 0;
+		rightScore = 0;
+		started = false;
+		
 		p1 = new Paddle(20, GAME_HEIGHT/2-40, 8, 80, 4);
 		p2 = new Paddle(GAME_WIDTH-28, GAME_HEIGHT/2-40, 8, 80, 4);
 		int vx = (ThreadLocalRandom.current().nextBoolean() ? 1 : -1) * ThreadLocalRandom.current().nextInt(4, 6+1);
@@ -43,21 +48,40 @@ public class Pong {
 			@Override
 			public void paintComponent(Graphics g) {
 				super.paintComponent(g);
-				p1.paint(g);
-				p2.paint(g);
-				ball.paint(g);
-				g.setColor(Color.WHITE);
-				g.drawLine(GAME_WIDTH/2, 0, GAME_WIDTH/2, GAME_HEIGHT);
+				if(!started) {
+					g.setColor(Color.WHITE);
+					g.setFont(new Font("Comic Sans MS", Font.PLAIN, 150));
+					g.drawString("Pong", GAME_WIDTH/3, GAME_HEIGHT/2-20);
+					g.setFont(new Font("Comic Sans MS", Font.PLAIN, 50));
+					g.drawString("Press SPACE to start", GAME_WIDTH/5, GAME_HEIGHT*2/3+20);
+				} else {
+					p1.paint(g);
+					p2.paint(g);
+					ball.paint(g);
+					g.setColor(Color.WHITE);
+					g.drawLine(GAME_WIDTH/2, 0, GAME_WIDTH/2, GAME_HEIGHT);
+				}
 			}
 		};
-		panel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("pressed W"), "W");
-		panel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("released W"), "released1");
-		panel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("pressed S"), "S");
-		panel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("released S"), "released1");
-		panel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("pressed UP"), "UP");
-		panel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("released UP"), "released2");
-		panel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("pressed DOWN"), "DOWN");
-		panel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("released DOWN"), "released2");
+		panel.getInputMap().put(KeyStroke.getKeyStroke("SPACE"), "START");
+		panel.getInputMap().put(KeyStroke.getKeyStroke("pressed W"), "W");
+		panel.getInputMap().put(KeyStroke.getKeyStroke("released W"), "released1");
+		panel.getInputMap().put(KeyStroke.getKeyStroke("pressed S"), "S");
+		panel.getInputMap().put(KeyStroke.getKeyStroke("released S"), "released1");
+		panel.getInputMap().put(KeyStroke.getKeyStroke("pressed UP"), "UP");
+		panel.getInputMap().put(KeyStroke.getKeyStroke("released UP"), "released2");
+		panel.getInputMap().put(KeyStroke.getKeyStroke("pressed DOWN"), "DOWN");
+		panel.getInputMap().put(KeyStroke.getKeyStroke("released DOWN"), "released2");
+		panel.getActionMap().put("START", new AbstractAction() {
+			private static final long serialVersionUID = 1L;
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				started = true;
+				labelL.setVisible(true);
+				labelR.setVisible(true);
+			}
+		});
 		panel.getActionMap().put("W", new AbstractAction() {
 			private static final long serialVersionUID = 1L;
 
@@ -108,22 +132,26 @@ public class Pong {
 		});
 		panel.setBackground(Color.BLACK);
 		panel.setPreferredSize(new Dimension(GAME_WIDTH, GAME_HEIGHT));
-		panel.setLayout(null);
+		panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
 
 		labelL = new JLabel(leftScore + "");
 		labelR = new JLabel(rightScore + "");
 
 		labelL.setForeground(Color.WHITE);
-		labelL.setLocation(GAME_WIDTH/2-100, 0);
-		labelL.setSize(100, 100);
+		labelL.setPreferredSize(new Dimension(100, 100));
 		labelL.setFont(new Font("Comic Sans MS", Font.PLAIN, 50));
+		labelL.setVisible(false);
 		labelR.setForeground(Color.WHITE);
-		labelR.setLocation(GAME_WIDTH/2+50, 0);
-		labelR.setSize(100, 100);
+		labelR.setPreferredSize(new Dimension(100, 100));
 		labelR.setFont(new Font("Comic Sans MS", Font.PLAIN, 50));
+		labelR.setVisible(false);
 
-		panel.add(labelL);
-		panel.add(labelR);
+		Box b = Box.createHorizontalBox();
+		b.add(labelL);
+		b.add(Box.createRigidArea(new Dimension(100, 0)));
+		b.add(labelR);
+		
+		panel.add(b);
 
 		frame.add(panel);
 		frame.pack();
@@ -132,25 +160,27 @@ public class Pong {
 		timer = new Timer(10, new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				ball.move();
-				p1.move();
-				p2.move();
-				ball.checkCollision(p1);
-				ball.checkCollision(p2);
-
-				if(ball.getX() <= 0) {
-					rightScore++;
-					labelR.setText(rightScore + "");
-					int nvx = ThreadLocalRandom.current().nextInt(4, 6+1);
-					int nvy = (ThreadLocalRandom.current().nextBoolean() ? 1 : -1) * ThreadLocalRandom.current().nextInt(4, nvx+1);
-					ball.reset(GAME_WIDTH/2-10, GAME_HEIGHT/2-10, -nvx, nvy);
-				}
-				else if(ball.getX() >= GAME_WIDTH) {
-					leftScore++;
-					labelL.setText(leftScore + "");
-					int nvx = ThreadLocalRandom.current().nextInt(4, 6+1);
-					int nvy = (ThreadLocalRandom.current().nextBoolean() ? 1 : -1) * ThreadLocalRandom.current().nextInt(4, nvx+1);
-					ball.reset(GAME_WIDTH/2-10, GAME_HEIGHT/2-10, nvx, nvy);
+				if(started) {
+					ball.move();
+					p1.move();
+					p2.move();
+					ball.checkCollision(p1);
+					ball.checkCollision(p2);
+	
+					if(ball.getX() <= 0) {
+						rightScore++;
+						labelR.setText(rightScore + "");
+						int nvx = ThreadLocalRandom.current().nextInt(4, 6+1);
+						int nvy = (ThreadLocalRandom.current().nextBoolean() ? 1 : -1) * ThreadLocalRandom.current().nextInt(4, nvx+1);
+						ball.reset(GAME_WIDTH/2-10, GAME_HEIGHT/2-10, -nvx, nvy);
+					}
+					else if(ball.getX() >= GAME_WIDTH) {
+						leftScore++;
+						labelL.setText(leftScore + "");
+						int nvx = ThreadLocalRandom.current().nextInt(4, 6+1);
+						int nvy = (ThreadLocalRandom.current().nextBoolean() ? 1 : -1) * ThreadLocalRandom.current().nextInt(4, nvx+1);
+						ball.reset(GAME_WIDTH/2-10, GAME_HEIGHT/2-10, nvx, nvy);
+					}
 				}
 
 				frame.repaint();
