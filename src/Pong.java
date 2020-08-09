@@ -15,25 +15,25 @@ public class Pong {
 	private JFrame frame;
 	private JPanel panel;
 	private Timer timer;
-	
+
 	private JLabel labelL;
 	private JLabel labelR;
-	
+
 	private int leftScore = 0;
 	private int rightScore = 0;
-	
+
 	public Pong() {
 		p1 = new Paddle(20, GAME_HEIGHT/2-40, 8, 80, 4);
 		p2 = new Paddle(GAME_WIDTH-28, GAME_HEIGHT/2-40, 8, 80, 4);
 		ball = new Ball(GAME_WIDTH/2, GAME_HEIGHT/2, 5, 5, 10);
 
 		frame = new JFrame();
-		
+
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setLocation(100, 100);
 		frame.setResizable(false);
 		frame.setTitle("Pong");
-		
+
 		panel = new JPanel() {
 			private static final long serialVersionUID = 1L;
 
@@ -65,7 +65,7 @@ public class Pong {
 		});
 		panel.getActionMap().put("S", new AbstractAction() {
 			private static final long serialVersionUID = 1L;
-			
+
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				p1.setDirection(1);
@@ -73,7 +73,7 @@ public class Pong {
 		});
 		panel.getActionMap().put("released1", new AbstractAction() {
 			private static final long serialVersionUID = 1L;
-			
+
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				p1.setDirection(0);
@@ -81,7 +81,7 @@ public class Pong {
 		});
 		panel.getActionMap().put("UP", new AbstractAction() {
 			private static final long serialVersionUID = 1L;
-			
+
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				p2.setDirection(-1);
@@ -89,7 +89,7 @@ public class Pong {
 		});
 		panel.getActionMap().put("DOWN", new AbstractAction() {
 			private static final long serialVersionUID = 1L;
-			
+
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				p2.setDirection(1);
@@ -97,7 +97,7 @@ public class Pong {
 		});
 		panel.getActionMap().put("released2", new AbstractAction() {
 			private static final long serialVersionUID = 1L;
-			
+
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				p2.setDirection(0);
@@ -109,23 +109,23 @@ public class Pong {
 
 		labelL = new JLabel(leftScore + "");
 		labelR = new JLabel(rightScore + "");
-		
+
 		labelL.setForeground(Color.WHITE);
 		labelL.setLocation(GAME_WIDTH/2-100, 0);
 		labelL.setSize(100, 100);
-		labelL.setFont(new Font("Serif", Font.PLAIN, 100));
+		labelL.setFont(new Font("Comic Sans MS", Font.PLAIN, 50));
 		labelR.setForeground(Color.WHITE);
 		labelR.setLocation(GAME_WIDTH/2+50, 0);
 		labelR.setSize(100, 100);
-		labelR.setFont(new Font("Serif", Font.PLAIN, 100));
-		
+		labelR.setFont(new Font("Comic Sans MS", Font.PLAIN, 50));
+
 		panel.add(labelL);
 		panel.add(labelR);
-		
+
 		frame.add(panel);
 		frame.pack();
 		frame.setVisible(true);
-		
+
 		timer = new Timer(10, new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -134,26 +134,28 @@ public class Pong {
 				p2.move();
 				ball.checkCollision(p1);
 				ball.checkCollision(p2);
-				
+
 				if(ball.getX() <= 0) {
 					rightScore++;
 					labelR.setText(rightScore + "");
 					ball.setX(GAME_WIDTH/2);
 					ball.setY(GAME_HEIGHT/2);
+					ball = new Ball(GAME_WIDTH/2, GAME_HEIGHT/2, -(int)(Math.random()*3) - 5, (int)(Math.random()*3) + 5, 20, 20);
 				}
 				else if(ball.getX() >= GAME_WIDTH) {
 					leftScore++;
 					labelL.setText(leftScore + "");
 					ball.setX(GAME_WIDTH/2);
 					ball.setY(GAME_HEIGHT/2);
+					ball = new Ball(GAME_WIDTH/2, GAME_HEIGHT/2, (int)(Math.random()*3) + 5, (int)(Math.random()*3) + 5, 20, 20);
 				}
-				
+
 				frame.repaint();
 			}
 		});
 		timer.start();
 	}
-	
+
 	public static void main(String[] args) {
 		new Pong();
 	}
