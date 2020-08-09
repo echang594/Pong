@@ -5,8 +5,8 @@ import java.awt.event.ActionListener;
 import javax.swing.*;
 
 public class Pong {
-	public static final int GAME_WIDTH = 1024;
-	public static final int GAME_HEIGHT = 512;
+	public static final int GAME_WIDTH = 800;
+	public static final int GAME_HEIGHT = 450;
 
 	private Paddle p1;
 	private Paddle p2;
@@ -23,9 +23,9 @@ public class Pong {
 	private int rightScore = 0;
 	
 	public Pong() {
-		p1 = new Paddle(10, GAME_HEIGHT/2-28, 4, 56, 4, true);
-		p2 = new Paddle(GAME_WIDTH-14, GAME_HEIGHT/2-28, 4, 56, 4, false);
-		ball = new Ball(GAME_WIDTH/2, GAME_HEIGHT/2, 5, 5, 20, 20);
+		p1 = new Paddle(20, GAME_HEIGHT/2-40, 8, 80, 4);
+		p2 = new Paddle(GAME_WIDTH-28, GAME_HEIGHT/2-40, 8, 80, 4);
+		ball = new Ball(GAME_WIDTH/2, GAME_HEIGHT/2, 5, 5, 10);
 
 		frame = new JFrame();
 		
@@ -111,11 +111,11 @@ public class Pong {
 		labelR = new JLabel(rightScore + "");
 		
 		labelL.setForeground(Color.WHITE);
-		labelL.setLocation(412, 0);
+		labelL.setLocation(GAME_WIDTH/2-100, 0);
 		labelL.setSize(100, 100);
 		labelL.setFont(new Font("Serif", Font.PLAIN, 100));
 		labelR.setForeground(Color.WHITE);
-		labelR.setLocation(562, 0);
+		labelR.setLocation(GAME_WIDTH/2+50, 0);
 		labelR.setSize(100, 100);
 		labelR.setFont(new Font("Serif", Font.PLAIN, 100));
 		
