@@ -233,7 +233,6 @@ public class Pong {
 						ball.reset(GAME_WIDTH/2-10, GAME_HEIGHT/2-10, nvx, nvy);
 					}
 				}
-
 				frame.repaint();
 			}
 		});
