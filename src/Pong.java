@@ -8,6 +8,7 @@ import javax.swing.*;
 public class Pong {
 	public static final int GAME_WIDTH = 800;
 	public static final int GAME_HEIGHT = 450;
+	private static final int POINTS_TO_WIN = 5;
 
 	private Paddle p1;
 	private Paddle p2;
@@ -69,32 +70,12 @@ public class Pong {
 					g.setColor(Color.WHITE);
 					g.drawLine(GAME_WIDTH/2, 0, GAME_WIDTH/2, GAME_HEIGHT);
 				}
-				if(ended) {
-					started = false;
+				if(started && ended) {
 					g.setColor(Color.WHITE);
 					g.setFont(new Font("Comic Sans MS", Font.PLAIN, 60));
 					g.drawString(winner + " wins!", GAME_WIDTH/4, GAME_HEIGHT/4 + 20);
 					g.setFont(new Font("Comic Sans MS", Font.PLAIN, 50));
 					g.drawString("Press SPACE to restart", GAME_WIDTH/5, GAME_HEIGHT*2/3+20);
-					
-					// restarts game
-					// score reset
-					// randomized direction
-					
-					p1.reset(20, GAME_HEIGHT/2-40);
-					p2.reset(GAME_WIDTH-28, GAME_HEIGHT/2-40);
-					
-					nvx = ThreadLocalRandom.current().nextInt(4, 6+1);
-					nvy = (ThreadLocalRandom.current().nextBoolean() ? 1 : -1) * ThreadLocalRandom.current().nextInt(4, nvx+1);
-
-					if(leftScore == 1) {	
-						ball.reset(GAME_WIDTH/2-10, GAME_HEIGHT/2-10, nvx, nvy);
-						leftScore = 0;
-					}
-					else if(rightScore == 1) {
-						ball.reset(GAME_WIDTH/2-10, GAME_HEIGHT/2-10, -nvx, nvy);
-						rightScore = 0;
-					}
 				}
 			}
 		};
@@ -112,6 +93,20 @@ public class Pong {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				p1.reset(20, GAME_HEIGHT/2-40);
+				p2.reset(GAME_WIDTH-28, GAME_HEIGHT/2-40);
+				
+				nvx = ThreadLocalRandom.current().nextInt(4, 6+1);
+				nvy = (ThreadLocalRandom.current().nextBoolean() ? 1 : -1) * ThreadLocalRandom.current().nextInt(4, nvx+1);
+
+				if(leftScore == POINTS_TO_WIN) {	
+					ball.reset(GAME_WIDTH/2-10, GAME_HEIGHT/2-10, nvx, nvy);
+					leftScore = 0;
+				}
+				else if(rightScore == POINTS_TO_WIN) {
+					ball.reset(GAME_WIDTH/2-10, GAME_HEIGHT/2-10, -nvx, nvy);
+					rightScore = 0;
+				}
 				started = true;
 				ended = false;
 				labelL.setText(leftScore + "");
@@ -209,7 +204,7 @@ public class Pong {
 						rightScore++;
 						labelR.setText(rightScore + "");
 
-						if (rightScore == 2) {
+						if (rightScore == POINTS_TO_WIN) {
 							ended = true;
 							winner = "Right side";
 						}
@@ -223,7 +218,7 @@ public class Pong {
 						leftScore++;
 						labelL.setText(leftScore + "");
 
-						if (leftScore == 2) {
+						if (leftScore == POINTS_TO_WIN) {
 							ended = true;
 							winner = "Left side";
 						}
