@@ -59,12 +59,5 @@ public class Paddle {
 		return left;
 	}
 	
-	public int getX() {
-		return x;
-	}
-	
-	public int getY() {
-		return y;
-	}
 	
 }

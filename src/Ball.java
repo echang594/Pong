@@ -19,7 +19,7 @@ public class Ball {
 	}
 
 	public void paint(Graphics g) {
-		g.setColor(Color.WHITE);
+		g.setColor(Color.RED);
 		g.fillOval(x, y, width, height);
 	}
 
@@ -65,4 +65,13 @@ public class Ball {
 	public void setY(int y) {
 		this.y = y;
 	}
+	
+	public void setVx(int vx) {
+		this.vx = vx;
+	}
+	
+	public void setVy(int vy) {
+		this.vy = vy;
+	}
+	
 }

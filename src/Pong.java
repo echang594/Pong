@@ -1,7 +1,7 @@
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
+import java.lang.*; 
 import javax.swing.*;
 
 public class Pong {
@@ -23,9 +23,12 @@ public class Pong {
 	private int rightScore = 0;
 	
 	public Pong() {
-		p1 = new Paddle(10, GAME_HEIGHT/2-28, 4, 56, 4, true);
-		p2 = new Paddle(GAME_WIDTH-14, GAME_HEIGHT/2-28, 4, 56, 4, false);
-		ball = new Ball(GAME_WIDTH/2, GAME_HEIGHT/2, 5, 5, 20, 20);
+		
+		int randomVx = (int)(Math.random()*2) == 1 ? 5 : -5;
+		int randomVy = (int)(Math.random()*2) == 1 ? 5 : -5;
+		p1 = new Paddle(10, GAME_HEIGHT/2-28, 4, 96, 6, true);
+		p2 = new Paddle(GAME_WIDTH-14, GAME_HEIGHT/2-28, 4, 96, 6, false);
+		ball = new Ball(GAME_WIDTH/2, GAME_HEIGHT/2, randomVx, randomVy, 20, 20);
 
 		frame = new JFrame();
 		
@@ -135,17 +138,23 @@ public class Pong {
 				ball.checkCollision(p1);
 				ball.checkCollision(p2);
 				
-				if(ball.getX() <= 0) {
+				if (ball.getX() <= 0) {
 					rightScore++;
 					labelR.setText(rightScore + "");
 					ball.setX(GAME_WIDTH/2);
 					ball.setY(GAME_HEIGHT/2);
+					ball.setVx(-5);
+					int randomVy = (int)(Math.random()*2) == 1 ? 5 : -5;
+					ball.setVy(randomVy);
 				}
 				else if(ball.getX() >= GAME_WIDTH) {
 					leftScore++;
 					labelL.setText(leftScore + "");
 					ball.setX(GAME_WIDTH/2);
 					ball.setY(GAME_HEIGHT/2);
+					ball.setVx(5);
+					int randomVy = (int)(Math.random()*2) == 1 ? 5 : -5;
+					ball.setVy(randomVy);
 				}
 				
 				frame.repaint();
