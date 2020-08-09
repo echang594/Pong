@@ -23,16 +23,14 @@ public class Pong {
 	private int rightScore = 0;
 	
 	public Pong() {
-		p1 = new Paddle(10, GAME_HEIGHT/2-28, 4, 56, 2, true);
-		p2 = new Paddle(GAME_WIDTH-14, GAME_HEIGHT/2-28, 4, 56, 2, false);
-		ball = new Ball(GAME_WIDTH/2, GAME_HEIGHT/2, 5, 5, 20);
+		p1 = new Paddle(10, GAME_HEIGHT/2-28, 4, 56, 4, true);
+		p2 = new Paddle(GAME_WIDTH-14, GAME_HEIGHT/2-28, 4, 56, 4, false);
+		ball = new Ball(GAME_WIDTH/2, GAME_HEIGHT/2, 5, 5, 20, 20);
 
 		frame = new JFrame();
-		labelL = new JLabel(leftScore + "");
-		labelR = new JLabel(rightScore + "");
 		
-		frame.setBounds(100, 100, GAME_WIDTH, GAME_HEIGHT);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setLocation(100, 100);
 		frame.setResizable(false);
 		frame.setTitle("Pong");
 		
@@ -45,7 +43,8 @@ public class Pong {
 				p1.paint(g);
 				p2.paint(g);
 				ball.paint(g);
-				g.drawLine(512, 0, 512, 512);
+				g.setColor(Color.WHITE);
+				g.drawLine(GAME_WIDTH/2, 0, GAME_WIDTH/2, GAME_HEIGHT);
 			}
 		};
 		panel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("pressed W"), "W");
@@ -105,32 +104,36 @@ public class Pong {
 			}
 		});
 		panel.setBackground(Color.BLACK);
-		
-		frame.add(panel);
-		frame.setVisible(true);
-		
+		panel.setPreferredSize(new Dimension(GAME_WIDTH, GAME_HEIGHT));
 		panel.setLayout(null);
-		panel.add(labelL);
-		panel.add(labelR);
+
+		labelL = new JLabel(leftScore + "");
+		labelR = new JLabel(rightScore + "");
 		
-		labelL.setForeground(Color.WHITE);	
-		labelR.setForeground(Color.WHITE);
+		labelL.setForeground(Color.WHITE);
 		labelL.setLocation(412, 0);
 		labelL.setSize(100, 100);
 		labelL.setFont(new Font("Serif", Font.PLAIN, 100));
+		labelR.setForeground(Color.WHITE);
 		labelR.setLocation(562, 0);
 		labelR.setSize(100, 100);
 		labelR.setFont(new Font("Serif", Font.PLAIN, 100));
 		
+		panel.add(labelL);
+		panel.add(labelR);
+		
+		frame.add(panel);
+		frame.pack();
+		frame.setVisible(true);
+		
 		timer = new Timer(10, new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				ball.move();
 				p1.move();
 				p2.move();
-				ball.move();
 				ball.checkCollision(p1);
 				ball.checkCollision(p2);
-				frame.repaint();
 				
 				if(ball.getX() <= 0) {
 					rightScore++;
@@ -143,8 +146,9 @@ public class Pong {
 					labelL.setText(leftScore + "");
 					ball.setX(GAME_WIDTH/2);
 					ball.setY(GAME_HEIGHT/2);
-
 				}
+				
+				frame.repaint();
 			}
 		});
 		timer.start();
