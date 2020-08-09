@@ -209,28 +209,28 @@ public class Pong {
 					if(ball.getX() <= 0) {
 						rightScore++;
 						labelR.setText(rightScore + "");
-<<<<<<< HEAD
+
 						if (rightScore == 1) {
 							ended = true;
 							winner = "Right side " ;
 						}
-=======
+
 						int nvx = ThreadLocalRandom.current().nextInt(4, 6+1);
 						int nvy = (ThreadLocalRandom.current().nextBoolean() ? 1 : -1) * ThreadLocalRandom.current().nextInt(4, nvx+1);
 						p1.reset(20, GAME_HEIGHT/2-40);
 						ball.reset(GAME_WIDTH/2-10, GAME_HEIGHT/2-10, -nvx, nvy);
->>>>>>> 3735db2ddf96934716da0dc2ee9b5bbded1b0a5a
+
 					}
 					else if(ball.getX() >= GAME_WIDTH) {
 						leftScore++;
 						labelL.setText(leftScore + "");
-<<<<<<< HEAD
+
 						if (leftScore == 1) {
 							ended = true;
 							winner = "Left side ";
 						}
 						
-=======
+
 						int nvx = ThreadLocalRandom.current().nextInt(4, 6+1);
 						int nvy = (ThreadLocalRandom.current().nextBoolean() ? 1 : -1) * ThreadLocalRandom.current().nextInt(4, nvx+1);
 						p2.reset(GAME_WIDTH-28, GAME_HEIGHT/2-40);
@@ -243,7 +243,7 @@ public class Pong {
 					else if (rightScore == 5) {
 						ended = true;
 						winner = "Right side ";
->>>>>>> 3735db2ddf96934716da0dc2ee9b5bbded1b0a5a
+
 					}
 					
 				}
