@@ -217,7 +217,6 @@ public class Pong {
 
 						int nvx = ThreadLocalRandom.current().nextInt(4, 6+1);
 						int nvy = (ThreadLocalRandom.current().nextBoolean() ? 1 : -1) * ThreadLocalRandom.current().nextInt(4, nvx+1);
-						p1.reset(20, GAME_HEIGHT/2-40);
 						ball.reset(GAME_WIDTH/2-10, GAME_HEIGHT/2-10, -nvx, nvy);
 
 					}
@@ -233,7 +232,6 @@ public class Pong {
 
 						int nvx = ThreadLocalRandom.current().nextInt(4, 6+1);
 						int nvy = (ThreadLocalRandom.current().nextBoolean() ? 1 : -1) * ThreadLocalRandom.current().nextInt(4, nvx+1);
-						p2.reset(GAME_WIDTH-28, GAME_HEIGHT/2-40);
 						ball.reset(GAME_WIDTH/2-10, GAME_HEIGHT/2-10, nvx, nvy);
 					}
 					else if (leftScore == 5) {
@@ -245,9 +243,7 @@ public class Pong {
 						winner = "Right side ";
 
 					}
-					
 				}
-
 				frame.repaint();
 			}
 		});
