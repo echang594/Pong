@@ -1,7 +1,5 @@
 import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 
 public class Paddle {
 	public int x;
@@ -32,8 +30,8 @@ public class Paddle {
 		y += speed * direction;
 		if(y < 0) {
 			y = 0;
-		} else if(y > Pong.GAME_HEIGHT) {
-			y = Pong.GAME_HEIGHT;
+		} else if(y > Pong.GAME_HEIGHT - height) {
+			y = Pong.GAME_HEIGHT - height;
 		}
 	}
 	
@@ -41,6 +39,22 @@ public class Paddle {
 		direction = d;
 	}
 	
+	public int getX() {
+		return x;
+	}
+
+	public int getY() {
+		return y;
+	}
+
+	public int getWidth() {
+		return width;
+	}
+
+	public int getHeight() {
+		return height;
+	}
+
 	public boolean isLeft() {
 		return left;
 	}
