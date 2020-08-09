@@ -33,7 +33,7 @@ public class Pong {
 		p2 = new Paddle(GAME_WIDTH-28, GAME_HEIGHT/2-40, 8, 80, 4);
 		int vx = (ThreadLocalRandom.current().nextBoolean() ? 1 : -1) * ThreadLocalRandom.current().nextInt(4, 6+1);
 		int vy = (ThreadLocalRandom.current().nextBoolean() ? 1 : -1) * ThreadLocalRandom.current().nextInt(4, Math.abs(vx)+1);
-		ball = new Ball(GAME_WIDTH/2-10, GAME_HEIGHT/2-10, vx, vy, 10);
+		ball = new Ball(GAME_WIDTH/2-10, GAME_HEIGHT/2-10, vx, vy, 50, "coronavirus.png");
 
 		frame = new JFrame();
 
@@ -57,7 +57,7 @@ public class Pong {
 				} else {
 					p1.paint(g);
 					p2.paint(g);
-					ball.paint(g);
+					ball.paint(g, this);
 					g.setColor(Color.WHITE);
 					g.drawLine(GAME_WIDTH/2, 0, GAME_WIDTH/2, GAME_HEIGHT);
 				}
