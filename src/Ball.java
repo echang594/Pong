@@ -19,7 +19,7 @@ public class Ball {
 	}
 
 	public void paint(Graphics g) {
-		g.setColor(Color.WHITE);
+		g.setColor(Color.red);
 		g.fillOval(x, y, diameter, diameter);
 	}
 

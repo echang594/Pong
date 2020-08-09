@@ -51,4 +51,9 @@ public class Paddle {
 	public int getHeight() {
 		return height;
 	}
+	
+	public void reset(int x, int y) {
+		this.x = x;
+		this.y = y;
+	}
 }

@@ -53,9 +53,13 @@ public class Pong {
 				if(started == false && ended == false) {
 					g.setColor(Color.WHITE);
 					g.setFont(new Font("Comic Sans MS", Font.PLAIN, 150));
-					g.drawString("Pong", GAME_WIDTH/3, GAME_HEIGHT/2-20);
+					g.drawString("Pong", GAME_WIDTH/3, GAME_HEIGHT/2 - 40);
+					
+					g.setFont(new Font("Comic Sans MS", Font.PLAIN, 30));
+					g.drawString("Deflect the virus and don't get infected", GAME_WIDTH/4 - 60, GAME_HEIGHT/2 + 45);
+					
 					g.setFont(new Font("Comic Sans MS", Font.PLAIN, 50));
-					g.drawString("Press SPACE to start", GAME_WIDTH/5, GAME_HEIGHT*2/3+20);
+					g.drawString("Press SPACE to start", GAME_WIDTH/5, GAME_HEIGHT*2/3+70);
 				} else {
 					p1.paint(g);
 					p2.paint(g);
@@ -185,6 +189,7 @@ public class Pong {
 						labelR.setText(rightScore + "");
 						int nvx = ThreadLocalRandom.current().nextInt(4, 6+1);
 						int nvy = (ThreadLocalRandom.current().nextBoolean() ? 1 : -1) * ThreadLocalRandom.current().nextInt(4, nvx+1);
+						p1.reset(20, GAME_HEIGHT/2-40);
 						ball.reset(GAME_WIDTH/2-10, GAME_HEIGHT/2-10, -nvx, nvy);
 					}
 					else if(ball.getX() >= GAME_WIDTH) {
@@ -192,15 +197,16 @@ public class Pong {
 						labelL.setText(leftScore + "");
 						int nvx = ThreadLocalRandom.current().nextInt(4, 6+1);
 						int nvy = (ThreadLocalRandom.current().nextBoolean() ? 1 : -1) * ThreadLocalRandom.current().nextInt(4, nvx+1);
+						p2.reset(GAME_WIDTH-28, GAME_HEIGHT/2-40);
 						ball.reset(GAME_WIDTH/2-10, GAME_HEIGHT/2-10, nvx, nvy);
 					}
-					else if (leftScore == 1) {
+					else if (leftScore == 5) {
 						ended = true;
 						winner = "Left side ";
 					}
-					else if (rightScore == 1) {
+					else if (rightScore == 5) {
 						ended = true;
-						winner = "Right side " ;
+						winner = "Right side ";
 					}
 				}
 
