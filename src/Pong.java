@@ -110,6 +110,8 @@ public class Pong {
 				p1.move();
 				p2.move();
 				ball.move();
+				ball.checkCollision(p1);
+				ball.checkCollision(p2);
 				frame.repaint();
 			}
 		});
@@ -121,10 +123,10 @@ public class Pong {
 		
 		
 
-		if(ball.getX() == 0) {
+		if(ball.getX() <= 0) {
 			leftScore++;
 		}
-		else if(ball.getX() == GAME_WIDTH) {
+		else if(ball.getX() >= GAME_WIDTH) {
 			rightScore++;
 		}
 
