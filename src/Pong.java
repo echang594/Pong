@@ -2,7 +2,6 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.concurrent.ThreadLocalRandom;
-
 import javax.swing.*;
 
 public class Pong {
